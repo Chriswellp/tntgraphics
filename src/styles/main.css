@@ -5094,3 +5094,13 @@ img {
     font-size: 12px;
   }
 }
+
+
+/* REMOVE SERVICE NUMBER AND ITS BLUE BACKGROUND */
+.service-card-number,
+.home-service-number,
+.service-number,
+.service-card .number,
+.home-service-card .number {
+  display: none !important;
+}

@@ -298,7 +298,7 @@ export default function HomePage() {
   <div className="services-grid">
     {[
       {
-        number: '01',
+        
         title: 'Branding & Visual Identity',
         description:
           'Build a memorable brand with professional logos, corporate identity and stationery.',
@@ -306,7 +306,7 @@ export default function HomePage() {
         link: '/services/branding'
       },
       {
-        number: '02',
+       
         title: 'Marketing & Promotional Design',
         description:
           'Capture attention with creative flyers, posters, brochures and promotional materials.',
@@ -314,7 +314,7 @@ export default function HomePage() {
         link: '/services/marketing'
       },
       {
-        number: '03',
+       
         title: 'Social Media & Digital Design',
         description:
           'Strengthen your online presence with engaging social media graphics and digital campaigns.',
@@ -322,7 +322,7 @@ export default function HomePage() {
         link: '/services/social-media'
       },
       {
-        number: '04',
+        
         title: 'Merchandise & Apparel Branding',
         description:
           'Bring your identity to life through branded clothing, caps and promotional merchandise.',

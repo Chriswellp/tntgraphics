@@ -5095,7 +5095,6 @@ img {
   }
 }
 
-
 /* REMOVE SERVICE NUMBER AND ITS BLUE BACKGROUND */
 .service-card-number,
 .home-service-number,
@@ -5103,4 +5102,48 @@ img {
 .service-card .number,
 .home-service-card .number {
   display: none !important;
+}
+
+/* HOMEPAGE SERVICES - ALWAYS VISIBLE TITLES */
+
+/* Keep service titles visible without hover */
+.service-card h3,
+.home-service-card h3,
+.service-card-title,
+.home-service-title {
+  color: #000000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  display: block !important;
+  position: relative;
+  z-index: 5;
+  font-weight: 900;
+  text-shadow: none !important;
+  transition: none !important;
+}
+
+/* Ensure titles remain visible on hover */
+.service-card:hover h3,
+.home-service-card:hover h3,
+.service-card:hover .service-card-title,
+.home-service-card:hover .home-service-title {
+  color: #000000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Mobile: no hover required */
+@media (max-width: 768px) {
+  .service-card h3,
+  .home-service-card h3,
+  .service-card-title,
+  .home-service-title {
+    color: #000000 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    display: block !important;
+  }
 }

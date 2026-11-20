@@ -231,16 +231,25 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* BRAND STRIP */}
-        <section className="brand-strip">
-          <span>GRAPHIC DESIGN</span>
-          <span>✳</span>
-          <span>CREATIVE THINKING</span>
-          <span>✳</span>
-          <span>VISUAL IDENTITY</span>
-          <span>✳</span>
-          <span>DIGITAL CREATIVITY</span>
-        </section>
+      
+{/* BRAND STRIP */}
+<section className="brand-strip">
+  <div className="brand-strip-track">
+    {[1, 2].map((item) => (
+      <div className="brand-strip-content" key={item}>
+        <span>GRAPHIC DESIGN</span>
+        <span className="brand-strip-star">✳</span>
+        <span>CREATIVE THINKING</span>
+        <span className="brand-strip-star">✳</span>
+        <span>VISUAL IDENTITY</span>
+        <span className="brand-strip-star">✳</span>
+        <span>DIGITAL CREATIVITY</span>
+        <span className="brand-strip-star">✳</span>
+      </div>
+    ))}
+  </div>
+</section>
+
 
         {/* ABOUT SECTION */}
         <section className="about-section section-padding" id="about">

@@ -5027,3 +5027,70 @@ img {
   background: #00BFFF;
   color: #000;
 }
+
+/* MOVING BRAND STRIP */
+.brand-strip {
+  width: 100%;
+  overflow: hidden;
+  background: #00BFFF;
+  color: #000000;
+  padding: 22px 0;
+  white-space: nowrap;
+  position: relative;
+}
+
+.brand-strip-track {
+  display: flex;
+  width: max-content;
+  animation: brandStripMove 25s linear infinite;
+}
+
+.brand-strip-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 45px;
+  padding-right: 45px;
+}
+
+.brand-strip-content span {
+  font-size: 15px;
+  font-weight: 950;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.brand-strip-content .brand-strip-star {
+  font-size: 22px;
+  color: #ffffff;
+}
+
+@keyframes brandStripMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause when the visitor hovers over the strip */
+.brand-strip:hover .brand-strip-track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 600px) {
+  .brand-strip {
+    padding: 17px 0;
+  }
+
+  .brand-strip-content {
+    gap: 28px;
+    padding-right: 28px;
+  }
+
+  .brand-strip-content span {
+    font-size: 12px;
+  }
+}

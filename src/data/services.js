@@ -1,153 +1,111 @@
 
 export const services = [
   {
-    id: 'branding',
+    id: 'vehicle-branding',
     number: '01',
-    slug: 'branding',
-    title: 'Branding & Visual Identity',
+    slug: 'vehicle-branding',
+    title: 'Vehicle Branding',
     shortDescription:
-      'Build a memorable brand with a professional identity that communicates who you are.',
+      'Turn your vehicle into a moving advertisement with professional bakkie and car branding.',
     description:
-      'Your brand is more than just a logo. We create cohesive visual identities that help businesses establish recognition, communicate their values and make a lasting impression.',
-    image: '/images/tnt-stationery.png',
-    category: 'Brand Identity',
+      'Make your business visible wherever the road takes you. At TNT Graphics, we create eye-catching vehicle branding for bakkies, cars and other business vehicles. Whether you need a full vehicle branding design or selected branding graphics, we help your vehicle represent your business professionally.',
+    image: '/images/portfolio/Image1.jpeg',
+    category: 'Vehicle Branding',
+
     highlights: [
-      'Professional logo design',
-      'Brand identity development',
-      'Business cards and letterheads',
-      'Corporate stationery',
-      'Brand guidelines',
-      'Company profiles'
+      'Bakkie branding',
+      'Car branding',
+      'Business vehicle graphics',
+      'Custom vehicle branding designs',
+      'Promotional vehicle graphics',
+      'Professional branding layouts'
     ],
+
     benefits: [
-      'Create a recognisable and consistent brand.',
-      'Present your business professionally.',
-      'Build trust with your target audience.'
+      'Turn your vehicle into a moving advertisement for your business.',
+      'Increase brand visibility wherever you travel.',
+      'Give your business a professional and recognisable appearance.'
+    ],
+
+    gallery: [
+      '/images/portfolio/Image1.jpeg',
+      '/images/portfolio/Image2.jpeg',
+      '/images/portfolio/Image3.jpeg',
+      '/images/portfolio/Image4.jpeg',
+      '/images/portfolio/Image5.jpeg',
+      '/images/portfolio/Image6.jpeg'
     ]
   },
+
   {
-    id: 'marketing',
+    id: 'shop-road-signage',
     number: '02',
-    slug: 'marketing',
-    title: 'Marketing & Promotional Design',
+    slug: 'shop-road-signage',
+    title: 'Shop Signage & Road Signage',
     shortDescription:
-      'Promote your products, services and events through powerful visual communication.',
+      'Make your business easier to recognise with bold, professional shop and road signage.',
     description:
-      'Get noticed with creative promotional materials designed to capture attention, communicate your message and encourage customers to take action.',
-    image: '/images/tnt-flyers.png',
-    category: 'Promotional Design',
+      'Your signage is often the first thing people notice about your business. We create attractive shop signage and road signage that help businesses stand out, communicate clearly and guide customers to the right place. Our designs are focused on visibility, presentation and making a lasting impression.',
+    image: '/images/portfolio/Image25.jpeg',
+    category: 'Business & Outdoor Signage',
+
     highlights: [
-      'Promotional flyers and posters',
-      'Brochures and catalogues',
-      'Event invitations',
-      'Menus and price lists',
-      'Promotional banners',
-      'Business advertisements'
+      'Shop signage',
+      'Business signs',
+      'Road signage',
+      'Outdoor promotional signs',
+      'Custom signage designs',
+      'Business identification signage'
     ],
+
     benefits: [
-      'Communicate your offers clearly.',
-      'Attract attention to your campaigns.',
-      'Present your promotions professionally.'
+      'Make your business easier for customers to find.',
+      'Improve your business visibility and presentation.',
+      'Communicate important information clearly through signage.'
+    ],
+
+    gallery: [
+      '/images/portfolio/Image25.jpeg',
+      '/images/portfolio/Image28.jpeg',
+      '/images/portfolio/Image30.jpeg',
+      '/images/portfolio/Image31.jpeg',
+      '/images/portfolio/Image33.jpeg',
+      '/images/portfolio/Image35.jpeg'
     ]
   },
+
   {
-    id: 'social-media',
+    id: 'portraits-banners',
     number: '03',
-    slug: 'social-media',
-    title: 'Social Media & Digital Design',
+    slug: 'portraits-banners',
+    title: 'Portraits & Banners',
     shortDescription:
-      'Make your business stand out online with engaging and consistent digital content.',
+      'Bring your ideas to life through creative portraits and attractive promotional banners.',
     description:
-      'We create eye-catching digital graphics that help businesses maintain a professional online presence, communicate with their audience and promote their products and services.',
-    image: '/images/tnt-social-media.png',
-    category: 'Digital Design',
+      'Whether you need a personalised portrait or a banner that communicates your message, TNT Graphics brings creativity and attention to detail to every design. We create visually appealing portraits and banners for personal, business and promotional purposes.',
+    image: '/images/portfolio/Image24.jpeg',
+    category: 'Creative Design & Banners',
+
     highlights: [
-      'Social media post designs',
-      'Instagram and Facebook graphics',
-      'Digital advertising creatives',
-      'Social media campaign designs',
-      'Online promotional banners',
-      'Digital marketing artwork'
+      'Custom portrait designs',
+      'Personalised portraits',
+      'Promotional banners',
+      'Business banners',
+      'Event and occasion banners',
+      'Creative banner layouts'
     ],
+
     benefits: [
-      'Strengthen your online brand presence.',
-      'Maintain a consistent visual identity.',
-      'Make your digital promotions more engaging.'
-    ]
-  },
-  {
-    id: 'merchandise',
-    number: '04',
-    slug: 'merchandise',
-    title: 'Merchandise & Apparel Branding',
-    shortDescription:
-      'Take your brand beyond the screen with customised merchandise and apparel designs.',
-    description:
-      'Turn everyday products into opportunities for brand visibility. We develop creative artwork for branded clothing, promotional merchandise and customised corporate gifts.',
-    image: '/images/tnt-merchandise.png',
-    category: 'Merchandise Design',
-    highlights: [
-      'T-shirt and clothing designs',
-      'Branded caps and hats',
-      'Corporate uniforms',
-      'Promotional merchandise artwork',
-      'Customised gift designs',
-      'Apparel branding concepts'
+      'Get designs created around your ideas and requirements.',
+      'Present your promotions and messages professionally.',
+      'Create memorable personalised portraits and visual designs.'
     ],
-    benefits: [
-      'Increase brand visibility.',
-      'Create consistent branded merchandise.',
-      'Give your business a distinctive identity.'
-    ]
-  },
-  {
-    id: 'packaging',
-    number: '05',
-    slug: 'packaging',
-    title: 'Packaging & Product Design',
-    shortDescription:
-      'Give your products a professional appearance with distinctive packaging and label designs.',
-    description:
-      'We create product-focused visual designs that help your products stand out. From labels to packaging concepts, we combine creativity with clear product communication.',
-    image: '/images/tnt-packaging.png',
-    category: 'Product Design',
-    highlights: [
-      'Product label design',
-      'Packaging concepts',
-      'Bottle and container labels',
-      'Product stickers',
-      'Food and beverage packaging',
-      'Product presentation designs'
-    ],
-    benefits: [
-      'Improve your product presentation.',
-      'Create a consistent product identity.',
-      'Help your products stand out on shelves.'
-    ]
-  },
-  {
-    id: 'advertising',
-    number: '06',
-    slug: 'advertising',
-    title: 'Large-Format & Outdoor Advertising',
-    shortDescription:
-      'Make a bigger impression with bold designs created for visibility in the real world.',
-    description:
-      'Bring your brand into the physical world with impactful advertising artwork designed for large-format printing, business spaces and outdoor visibility.',
-    image: '/images/tnt-advertising.png',
-    category: 'Outdoor Advertising',
-    highlights: [
-      'Billboard artwork',
-      'Outdoor banners',
-      'Business signage designs',
-      'Vehicle branding artwork',
-      'Shop and display graphics',
-      'Large-format promotional designs'
-    ],
-    benefits: [
-      'Increase visibility in public spaces.',
-      'Communicate your message from a distance.',
-      'Maintain professional branding across locations.'
+
+    gallery: [
+      '/images/portfolio/Image23.jpeg',
+      '/images/portfolio/Image24.jpeg',
+      '/images/portfolio/Image26.jpeg',
+      '/images/portfolio/Image29.jpeg'
     ]
   }
 ];

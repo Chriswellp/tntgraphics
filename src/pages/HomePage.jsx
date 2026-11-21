@@ -1,6 +1,6 @@
 import ContactSection from '../components/ContactSection';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   ArrowRight,
@@ -12,7 +12,9 @@ import {
   Palette,
   PenTool,
   Megaphone,
-  PanelsTopLeft
+  PanelsTopLeft,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 const services = [
@@ -42,64 +44,40 @@ const services = [
   }
 ];
 
-const projects = [
+
+const portfolioGroups = [
   {
-    title: 'Branded Caps & Merchandise',
-    category: 'APPAREL & MERCHANDISE',
-    image: '/images/tnt-merchandise.png',
-    number: '01',
-    description:
-      'Creative branded apparel, caps and promotional merchandise.'
+    category: 'Vehicle Branding',
+    images: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+      15, 16, 17, 18, 19, 20, 21, 22, 27, 32, 34, 36, 37, 38
+    ]
   },
   {
-    title: 'Corporate Stationery',
-    category: 'BUSINESS BRANDING',
-    image: '/images/tnt-stationery.png',
-    number: '02',
-    description:
-      'Professional stationery and corporate identity concepts.'
+    category: 'Shop Signage & Road Signage',
+    images: [25, 28, 30, 31, 33, 35]
   },
   {
-    title: 'Promotional Flyers & Posters',
-    category: 'PRINT DESIGN',
-    image: '/images/tnt-flyers.png',
-    number: '03',
-    description:
-      'Bold promotional materials designed to capture attention.'
-  },
-  {
-    title: 'Social Media Campaigns',
-    category: 'DIGITAL MARKETING',
-    image: '/images/tnt-social-media.png',
-    number: '04',
-    description:
-      'Creative digital campaigns for stronger online visibility.'
-  },
-  {
-    title: 'Product Packaging & Labels',
-    category: 'PACKAGING DESIGN',
-    image: '/images/tnt-packaging.png',
-    number: '05',
-    description:
-      'Distinctive packaging and label concepts for memorable products.'
-  },
-  {
-    title: 'Outdoor Advertising',
-    category: 'ADVERTISING & SIGNAGE',
-    image: '/images/tnt-advertising.png',
-    number: '06',
-    description:
-      'Billboards, signage and large-format promotional concepts.'
-  },
-  {
-    title: 'Creative Digital Artwork',
-    category: 'DIGITAL ART',
-    image: '/images/tnt-digital-art.png',
-    number: '07',
-    description:
-      'Original digital compositions and imaginative visual concepts.'
+    category: 'Portraits & Banners',
+    images: [23, 24, 26, 29]
   }
 ];
+
+const projects = portfolioGroups.flatMap((group) =>
+  group.images.map((number) => {
+    const filename = number === 10
+      ? 'imag10.jpeg'
+      : `Image${number}.jpeg`;
+
+    return {
+      number: String(number).padStart(2, '0'),
+      title: group.category,
+      category: group.category.toUpperCase(),
+      image: `/images/portfolio/${filename}`
+    };
+  })
+);
+
 
 const reviews = [
   {
@@ -126,10 +104,52 @@ const reviews = [
 ];
 
 export default function HomePage() {
-  const [menuOpen, setMenuOpen] = useState(false);
+ const [menuOpen, setMenuOpen] = useState(false);
+const [portfolioFilter, setPortfolioFilter] = useState('All');
+const [selectedProject, setSelectedProject] = useState(null);
 
-  const closeMenu = () => setMenuOpen(false);
+const closeMenu = () => setMenuOpen(false);
 
+const filteredProjects = projects.filter((project) =>
+  portfolioFilter === 'All' ||
+  project.category === portfolioFilter.toUpperCase()
+);
+
+const changeProject = (direction) => {
+  if (!selectedProject) return;
+
+  const currentIndex = filteredProjects.findIndex(
+    (project) => project.number === selectedProject.number
+  );
+
+  const nextIndex =
+    (currentIndex + direction + filteredProjects.length) %
+    filteredProjects.length;
+
+  setSelectedProject(filteredProjects[nextIndex]);
+};
+
+useEffect(() => {
+  const handleKeyDown = (event) => {
+    if (!selectedProject) return;
+
+    if (event.key === 'Escape') {
+      setSelectedProject(null);
+    }
+
+    if (event.key === 'ArrowRight') {
+      changeProject(1);
+    }
+
+    if (event.key === 'ArrowLeft') {
+      changeProject(-1);
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+
+  return () => window.removeEventListener('keydown', handleKeyDown);
+}, [selectedProject, filteredProjects]);
   return (
     <div className="website">
 
@@ -276,7 +296,7 @@ export default function HomePage() {
           </div>
         </section>
 
-      
+
 {/* SERVICES SECTION */}
 <section className="services-section section-padding" id="services">
   <div className="section-top">
@@ -290,57 +310,43 @@ export default function HomePage() {
     </div>
 
     <p>
-      From building distinctive brands to creating powerful
-      visual experiences, we bring ideas to life through design.
+      From transforming vehicles into moving advertisements
+      to creating striking signage and personalised visual
+      designs, we bring your ideas to life.
     </p>
   </div>
 
   <div className="services-grid">
     {[
       {
-        
-        title: 'Branding & Visual Identity',
+        title: 'Vehicle Branding',
         description:
-          'Build a memorable brand with professional logos, corporate identity and stationery.',
-        image: '/images/tnt-stationery.png',
-        link: '/services/branding'
+          'Give your vehicle a powerful identity with professional car and bakkie branding that gets your business noticed wherever you go.',
+        image: '/images/vehicle-branding.jpg',
+        link: '/services/vehicle-branding'
       },
       {
-       
-        title: 'Marketing & Promotional Design',
+        title: 'Shop Signage & Road Signage',
         description:
-          'Capture attention with creative flyers, posters, brochures and promotional materials.',
-        image: '/images/tnt-flyers.png',
-        link: '/services/marketing'
+          'Make your business stand out with eye-catching shop signs and clear, professionally designed road signage.',
+        image: '/images/shop-road-signage.jpg',
+        link: '/services/shop-road-signage'
       },
       {
-       
-        title: 'Social Media & Digital Design',
+        title: 'Portraits & Banners',
         description:
-          'Strengthen your online presence with engaging social media graphics and digital campaigns.',
-        image: '/images/tnt-social-media.png',
-        link: '/services/social-media'
-      },
-      {
-        
-        title: 'Merchandise & Apparel Branding',
-        description:
-          'Bring your identity to life through branded clothing, caps and promotional merchandise.',
-        image: '/images/tnt-merchandise.png',
-        link: '/services/merchandise'
+          'Bring your ideas to life with creative portrait designs and attractive banners for personal, business and promotional use.',
+        image: '/images/portraits-banners.jpg',
+        link: '/services/portraits-banners'
       }
-    ].map((service, index) => (
+    ].map((service) => (
       <Link
         to={service.link}
         className="service-card"
-        key={service.number}
+        key={service.title}
       >
         <div className="home-service-image">
           <img src={service.image} alt={service.title} />
-
-          <span className="service-number">
-            {service.number}
-          </span>
 
           <span className="home-service-arrow">
             <ArrowUpRight size={21} />
@@ -361,8 +367,8 @@ export default function HomePage() {
 
   <div className="home-services-bottom">
     <div>
-      <span className="eyebrow">MORE CREATIVE POSSIBILITIES</span>
-      <h3>Discover everything we can create for you.</h3>
+      <span className="eyebrow">OUR CREATIVE SERVICES</span>
+      <h3>Let's bring your next idea to life.</h3>
     </div>
 
     <Link to="/services" className="home-services-button">
@@ -372,72 +378,163 @@ export default function HomePage() {
 </section>
 
 
-        {/* PORTFOLIO SECTION */}
-        <section className="portfolio-section section-padding" id="portfolio">
-          <div className="section-top">
-            <div>
-              <p className="eyebrow">03 / SELECTED CREATIONS</p>
 
-              <h2>
-                OUR CREATIVE
-                <span> WORLD.</span>
-              </h2>
+{/* PORTFOLIO SECTION */}
+<section className="portfolio-section section-padding" id="portfolio">
+
+  <div className="section-top">
+    <div>
+      <p className="eyebrow">03 / OUR ACTUAL WORK</p>
+
+      <h2>
+        MADE TO MAKE
+        <span> AN IMPRESSION.</span>
+      </h2>
+    </div>
+
+    <p>
+      Take a closer look at our creative work, from vehicle
+      branding and professional signage to portraits and
+      promotional banners.
+    </p>
+  </div>
+
+ {/* PORTFOLIO FILTERS */}
+<div className="portfolio-filters">
+  {[
+    'All',
+    'Vehicle Branding',
+    'Shop Signage & Road Signage',
+    'Portraits & Banners'
+  ].map((category) => (
+    <button
+      key={category}
+      type="button"
+      className={
+        portfolioFilter === category
+          ? 'portfolio-filter active'
+          : 'portfolio-filter'
+      }
+      onClick={() => {
+        setPortfolioFilter(category);
+        setSelectedProject(null);
+      }}
+    >
+      {category}
+    </button>
+  ))}
+</div>
+
+  {/* PORTFOLIO GALLERY */}
+  <div className="tnt-portfolio-grid">
+    {filteredProjects.map((project) => (
+        <article
+          className="tnt-portfolio-card"
+          key={project.number}
+        >
+          <button
+            type="button"
+            className="portfolio-image-button"
+            onClick={() => setSelectedProject(project)}
+            aria-label={`View ${project.title} photograph ${project.number}`}
+          >
+            <div className="tnt-portfolio-image">
+              <img
+                src={project.image}
+                alt={`${project.title} - TNT Graphics`}
+                loading="lazy"
+              />
+
+
+              <div className="tnt-image-overlay">
+                <span>VIEW IMAGE</span>
+                <ArrowUpRight size={24} />
+              </div>
+            </div>
+          </button>
+
+          <div className="tnt-portfolio-info">
+            <div>
+              <p>{project.category}</p>
+              <h3>{project.title}</h3>
             </div>
 
-            <p>
-              Explore a collection of creative sample concepts
-              showcasing the possibilities of TNT Graphics.
-            </p>
+            <span className="tnt-portfolio-arrow">↗</span>
           </div>
+        </article>
+      ))}
+  </div>
 
-          <div className="tnt-portfolio-grid">
-            {projects.map((project) => (
-              <article className="tnt-portfolio-card" key={project.number}>
-                <div className="tnt-portfolio-image">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} - TNT Graphics sample design`}
-                    loading="lazy"
-                  />
+  <div className="portfolio-bottom">
+    <span>CREATIVITY. QUALITY. ORIGINALITY.</span>
 
-                  <span className="tnt-image-number">
-                    {project.number}
-                  </span>
+    <a href="#contact">
+      HAVE A PROJECT IN MIND? LET'S TALK
+      <ArrowUpRight size={17} />
+    </a>
+  </div>
 
-                  <div className="tnt-image-overlay">
-                    <span>VIEW DESIGN</span>
-                    <ArrowUpRight size={24} />
-                  </div>
-                </div>
+  {/* IMAGE VIEWER */}
+{selectedProject && (
+  <div
+    className="portfolio-lightbox"
+    onClick={() => setSelectedProject(null)}
+  >
+    <button
+      type="button"
+      className="portfolio-lightbox-close"
+      onClick={() => setSelectedProject(null)}
+      aria-label="Close image viewer"
+    >
+      <X size={28} />
+    </button>
 
-                <div className="tnt-portfolio-info">
-                  <div>
-                    <p>{project.category}</p>
-                    <h3>{project.title}</h3>
-                    <span>{project.description}</span>
-                  </div>
+    <button
+      type="button"
+      className="portfolio-lightbox-nav portfolio-lightbox-prev"
+      onClick={(event) => {
+        event.stopPropagation();
+        changeProject(-1);
+      }}
+      aria-label="Previous project"
+    >
+      <ChevronLeft size={32} />
+    </button>
 
-                  <span className="tnt-portfolio-arrow">
-                    ↗
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
+    <div
+      className="portfolio-lightbox-content"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <img
+        src={selectedProject.image}
+        alt={`${selectedProject.title} - TNT Graphics`}
+      />
 
-          <div className="portfolio-bottom">
-            <span>CREATIVITY. QUALITY. ORIGINALITY.</span>
-            <a href="#contact">
-              HAVE A PROJECT IN MIND? LET'S TALK <ArrowUpRight size={17} />
-            </a>
-          </div>
+      <div className="portfolio-lightbox-caption">
+        <span>{selectedProject.category}</span>
+        <h3>{selectedProject.title}</h3>
+        <p>
+          PROJECT {selectedProject.number} / {filteredProjects.length}
+        </p>
+      </div>
+    </div>
 
-          <p className="gallery-disclaimer">
-            These are illustrative sample portfolio concepts created
-            to demonstrate the creative possibilities of TNT Graphics.
-            They are not presented as completed client commissions.
-          </p>
-        </section>
+    <button
+      type="button"
+      className="portfolio-lightbox-nav portfolio-lightbox-next"
+      onClick={(event) => {
+        event.stopPropagation();
+        changeProject(1);
+      }}
+      aria-label="Next project"
+    >
+      <ChevronRight size={32} />
+    </button>
+  </div>
+)}
+
+</section>
+
 
         {/* CUSTOMER REVIEWS SECTION */}
         <section className="reviews-section section-padding" id="reviews">

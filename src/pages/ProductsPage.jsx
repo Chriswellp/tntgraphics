@@ -24,79 +24,41 @@ const WHATSAPP_NUMBER = '263781329858';
 const products = [
   {
     id: 1,
-    name: 'Custom T-Shirt Branding',
-    category: 'Merchandise',
-    type: 'Physical Product',
-    description: 'Custom-designed branded T-shirts for businesses, events and personal use.',
-    image: '/images/tnt-merchandise.png',
-    tag: 'POPULAR'
+    name: 'Vehicle Branding',
+    category: 'Vehicle Branding',
+    type: 'Creative Service',
+    description:
+      'Professional car and bakkie branding designed to make your vehicle stand out and promote your business wherever you go.',
+    image: '/images/portfolio/Image1.jpeg',
+    tag: 'OUR SERVICE'
   },
   {
     id: 2,
-    name: 'Branded Caps',
-    category: 'Merchandise',
-    type: 'Physical Product',
-    description: 'Give your brand visibility with professionally designed branded caps.',
-    image: '/images/tnt-merchandise.png'
+    name: 'Shop Signage & Road Signage',
+    category: 'Shop Signage & Road Signage',
+    type: 'Creative Service',
+    description:
+      'Professional shop signage and road signs that improve visibility, communicate your brand and attract attention.',
+    image: '/images/portfolio/Image25.jpeg',
+    tag: 'OUR SERVICE'
   },
   {
     id: 3,
-    name: 'Business Cards',
-    category: 'Print & Stationery',
-    type: 'Physical Product',
-    description: 'Make a strong first impression with professional business card designs.',
-    image: '/images/tnt-stationery.png'
-  },
-  {
-    id: 4,
-    name: 'Flyers & Posters',
-    category: 'Print & Stationery',
-    type: 'Physical Product',
-    description: 'Promote your business, products and events with eye-catching designs.',
-    image: '/images/tnt-flyers.png',
-    tag: 'POPULAR'
-  },
-  {
-    id: 5,
-    name: 'Product Labels & Packaging',
-    category: 'Packaging',
-    type: 'Physical Product',
-    description: 'Professional labels and packaging designs that make products stand out.',
-    image: '/images/tnt-packaging.png'
-  },
-  {
-    id: 6,
-    name: 'Logo Design',
-    category: 'Digital Design',
-    type: 'Digital Service',
-    description: 'A distinctive logo created to represent your business and its identity.',
-    image: '/images/tnt-stationery.png'
-  },
-  {
-    id: 7,
-    name: 'Social Media Design Package',
-    category: 'Digital Design',
-    type: 'Digital Service',
-    description: 'Creative digital graphics to help your business stand out online.',
-    image: '/images/tnt-social-media.png',
-    tag: 'POPULAR'
-  },
-  {
-    id: 8,
-    name: 'Custom Advertising Artwork',
-    category: 'Digital Design',
-    type: 'Digital Service',
-    description: 'Professional advertising artwork for campaigns, promotions and outdoor displays.',
-    image: '/images/tnt-advertising.png'
+    name: 'Portraits & Banners',
+    category: 'Portraits & Banners',
+    type: 'Creative Service',
+    description:
+      'Creative portrait work and professionally designed banners for personal, business and promotional needs.',
+    image: '/images/portfolio/Image23.jpeg',
+    tag: 'OUR SERVICE'
   }
 ];
 
 const categories = [
-  'All Products',
-  'Merchandise',
-  'Print & Stationery',
-  'Packaging',
-  'Digital Design'
+  'All Services',
+  'Vehicle Branding',
+  'Shop Signage & Road Signage',
+  'Portraits & Banners'
 ];
 
 export default function ProductsPage() {
@@ -160,80 +122,81 @@ const filteredProducts = products.filter((product) => {
 
       <main className="products-page">
 
-        {/* HERO */}
-        <section className="products-hero">
-          <div className="products-hero-content">
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="products-eyebrow">
-                <Sparkles size={15} /> THE TNT GRAPHICS COLLECTION
-              </p>
+       
+{/* HERO */}
+<section className="products-hero">
+  <div className="products-hero-content">
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+    >
+      <p className="products-eyebrow">
+        <Sparkles size={15} /> THE TNT GRAPHICS COLLECTION
+      </p>
 
-              <h1>
-                CREATIVE
-                <span> PRODUCTS.</span>
-                <br />
-                POWERFUL
-                <span> IMPRESSIONS.</span>
-              </h1>
+      <h1>
+        CREATIVE
+        <span> SERVICES.</span>
+        <br />
+        POWERFUL
+        <span> IMPRESSIONS.</span>
+      </h1>
 
-              <p className="products-hero-description">
-                Explore our collection of branded merchandise,
-                professional print materials and creative digital
-                design services. Whatever your idea, let's bring
-                it to life.
-              </p>
+      <p className="products-hero-description">
+        Discover our specialised creative services, from professional
+        vehicle branding to impactful shop signage, road signage,
+        portraits and banners. We bring your ideas to life.
+      </p>
 
-              <a href="#product-catalogue" className="products-hero-button">
-                EXPLORE PRODUCTS <ArrowUpRight size={19} />
-              </a>
-            </motion.div>
-          </div>
+      <a href="#product-catalogue" className="products-hero-button">
+        EXPLORE OUR SERVICES <ArrowUpRight size={19} />
+      </a>
+    </motion.div>
+  </div>
 
-          <motion.div
-            className="products-hero-visual"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9 }}
-          >
-            <img
-              src="/images/tnt-merchandise.png"
-              alt="TNT Graphics branded merchandise"
-            />
+  <motion.div
+    className="products-hero-visual"
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.9 }}
+  >
+    <img
+      src="/images/portfolio/Image1.jpeg"
+      alt="TNT Graphics vehicle branding"
+    />
 
-            <div className="products-floating-label">
-              <span>DESIGN.</span>
-              <span>CREATE.</span>
-              <span>INSPIRE.</span>
-            </div>
-          </motion.div>
+    <div className="products-floating-label">
+      <span>DESIGN.</span>
+      <span>CREATE.</span>
+      <span>INSPIRE.</span>
+    </div>
+  </motion.div>
 
-          <div className="products-hero-bottom">
-            <span>PHYSICAL PRODUCTS</span>
-            <span className="products-hero-line"></span>
-            <span>DIGITAL DESIGN SERVICES</span>
-          </div>
-        </section>
+  <div className="products-hero-bottom">
+    <span>VEHICLE BRANDING</span>
+    <span className="products-hero-line"></span>
+    <span>SIGNAGE & PRINT</span>
+  </div>
+</section>
 
-        {/* INTRODUCTION */}
-        <section className="products-intro">
-          <div>
-            <p className="products-eyebrow">EXPLORE WHAT WE CREATE</p>
-            <h2>
-              EVERYTHING YOUR
-              <span> BRAND NEEDS.</span>
-            </h2>
-          </div>
+{/* INTRODUCTION */}
+<section className="products-intro">
+  <div>
+    <p className="products-eyebrow">EXPLORE WHAT WE CREATE</p>
+    <h2>
+      CREATIVE SERVICES.
+      <span> POWERFUL IMPRESSIONS.</span>
+    </h2>
+  </div>
 
-          <p>
-            From physical branded products to custom digital
-            artwork, discover creative solutions designed to
-            help your business stand out.
-          </p>
-        </section>
+  <p>
+    From professional vehicle branding to shop signage, road signage,
+    portraits and banners, discover creative solutions designed to
+    help your business stand out.
+  </p>
+</section>
+
 
         {/* PRODUCT CATALOGUE */}
         <section

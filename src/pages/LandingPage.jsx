@@ -1,368 +1,281 @@
 
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { Suspense, useRef } from 'react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import {
+  ScrollControls,
+  Scroll,
+  useScroll,
+} from '@react-three/drei';
+import { TextureLoader, Vector3 } from 'three';
+import { useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
-  MessageCircle
+  ChevronDown,
+  MessageCircle,
+  MoveDown,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
-const gallery = [
+const WHATSAPP_URL = 'https://wa.me/263781329858';
+
+const SCENES = [
   {
-    image: '/images/tnt-social-media.png',
-    title: 'Social Media',
-    className: 'launch-card-main',
-    number: '01'
+    title: 'Your Vision.',
+    highlight: 'Our Creativity.',
+    description:
+      'We transform ideas into powerful visual experiences through creativity, design and precision.',
+    eyebrow: 'WELCOME TO TNT GRAPHICS',
+    action: 'Explore Our Services',
   },
   {
-    image: '/images/tnt-flyers.png',
-    title: 'Flyers & Posters',
-    className: 'launch-card-left',
-    number: '02'
+    title: 'Make Your Brand',
+    highlight: 'Impossible to Ignore.',
+    description:
+      'Professional vehicle branding, shop signage and road signage that make your business stand out.',
+    eyebrow: 'DESIGN. PRINT. BRAND.',
+    action: 'Discover Our Services',
   },
   {
-    image: '/images/tnt-stationery.png',
-    title: 'Corporate Identity',
-    className: 'launch-card-right',
-    number: '03'
+    title: 'Step Inside',
+    highlight: 'Experience Quality.',
+    description:
+      'From the first concept to the final print, discover the creativity behind every project.',
+    eyebrow: 'CREATIVITY IN EVERY DETAIL',
+    action: 'View Our Work',
   },
   {
-    image: '/images/tnt-merchandise.png',
-    title: 'Branded Merchandise',
-    className: 'launch-card-bottom-left',
-    number: '04'
+    title: 'Let’s Create',
+    highlight: 'Something Amazing.',
+    description:
+      'Your next big idea deserves the right creative partner. Let’s bring it to life.',
+    eyebrow: 'TNT GRAPHICS',
+    action: 'Chat With Our Team',
   },
-  {
-    image: '/images/tnt-packaging.png',
-    title: 'Product Packaging',
-    className: 'launch-card-bottom-right',
-    number: '05'
-  }
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.16
-    }
-  }
-};
+function SceneImages() {
+  const textures = useLoader(TextureLoader, [
+    '/images/tnt-bakkie.png',
+    '/images/tnt-building.png',
+    '/images/tnt-entrance.png',
+    '/images/tnt-studio.png',
+  ]);
 
-const revealUp = {
-  hidden: {
-    opacity: 0,
-    y: 35
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1]
-    }
-  }
-};
+  const positions = [0, -24, -48, -72];
+
+  return (
+    <group>
+      {textures.map((texture, index) => (
+        <mesh
+          key={index}
+          position={[0, 0, positions[index]]}
+        >
+          <planeGeometry args={[32, 18]} />
+          <meshBasicMaterial
+            map={texture}
+            toneMapped={false}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function World() {
+  const scroll = useScroll();
+  const target = useRef(new Vector3());
+
+  useFrame((state) => {
+    const progress = scroll.offset;
+
+    // Move the camera through the four image scenes.
+    const cameraZ = 12 - progress * 72;
+
+    target.current.set(0, 0, cameraZ);
+
+    state.camera.position.lerp(target.current, 0.075);
+
+    state.camera.lookAt(
+      0,
+      0,
+      cameraZ - 12
+    );
+  });
+
+  return (
+    <>
+      <ambientLight intensity={1.5} />
+
+      <SceneImages />
+
+      <Scroll html>
+        <div className="tnt-story">
+          {SCENES.map((scene, index) => (
+            <section
+              className={`tnt-scene tnt-scene-${index + 1}`}
+              key={scene.eyebrow}
+            >
+              <div className="tnt-scene-content">
+                <span className="tnt-eyebrow">
+                  {scene.eyebrow}
+                </span>
+
+                <h1>
+                  {scene.title}
+                  <span>{scene.highlight}</span>
+                </h1>
+
+                <p>{scene.description}</p>
+
+                {index === 3 ? (
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="tnt-primary-btn"
+                  >
+                    <MessageCircle size={19} />
+                    {scene.action}
+                    <ArrowRight size={18} />
+                  </a>
+                ) : (
+                  <a
+                    href={
+                      index === 2
+                        ? '/home#portfolio'
+                        : '/services'
+                    }
+                    className="tnt-primary-btn"
+                  >
+                    {scene.action}
+                    <ArrowRight size={18} />
+                  </a>
+                )}
+              </div>
+
+              {index < 3 && (
+                <div className="tnt-scroll-hint">
+                  <MoveDown size={20} />
+                  <span>SCROLL TO EXPLORE</span>
+                </div>
+              )}
+
+              <div className="tnt-scene-number">
+                0{index + 1} / 04
+              </div>
+            </section>
+          ))}
+        </div>
+      </Scroll>
+    </>
+  );
+}
+
+function LoadingScreen() {
+  return (
+    <div className="tnt-loading">
+      <div className="tnt-loading-logo">
+        TNT<span>GRAPHICS</span>
+      </div>
+      <div className="tnt-loader" />
+      <p>Preparing your experience...</p>
+    </div>
+  );
+}
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate('/home');
-    }, 6000);
-
-    return () => clearTimeout(timer);
-  }, [navigate]);
-
-  const enterWebsite = () => {
-    navigate('/home');
-  };
-
   return (
-    <main className="launch-page">
-
-      {/* BACKGROUND EFFECTS */}
-      <div className="launch-background-grid" />
-      <div className="launch-glow launch-glow-one" />
-      <div className="launch-glow launch-glow-two" />
-      <div className="launch-glow launch-glow-three" />
-
-      {/* HEADER */}
-      <motion.header
-        className="launch-header"
-        initial={{ opacity: 0, y: -25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <a href="#top" className="launch-brand">
-          <span className="launch-brand-tnt">TNT</span>
-          <span className="launch-brand-graphics">GRAPHICS</span>
-          <small>CREATIVE DESIGN STUDIO</small>
-        </a>
-
-        <div className="launch-header-right">
-          <span className="launch-live-dot" />
-          <span>CREATIVE STUDIO</span>
-          <span className="launch-header-line" />
-          <span className="launch-location">ZIMBABWE</span>
-        </div>
-      </motion.header>
-
-      {/* MAIN CONTENT */}
-      <section className="launch-main" id="top">
-
-        {/* LEFT SIDE */}
-        <motion.div
-          className="launch-copy"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+    <main className="tnt-launch-page">
+      <div className="tnt-canvas">
+        <Canvas
+          camera={{
+            position: [0, 0, 12],
+            fov: 50,
+            near: 0.1,
+            far: 150,
+          }}
+          dpr={[1, 1.5]}
+          gl={{
+            antialias: true,
+            alpha: false,
+          }}
         >
-          <motion.div
-            className="launch-eyebrow"
-            variants={revealUp}
-          >
-            <span className="launch-eyebrow-line" />
-            WELCOME TO TNT GRAPHICS
-          </motion.div>
+          <color attach="background" args={['#000000']} />
 
-          <motion.h1 variants={revealUp}>
-            IDEAS
-            <span className="launch-heading-blue"> INTO</span>
-            <br />
-            <span className="launch-heading-outline">
-              VISUAL
-            </span>
-            <br />
-            IMPACT<span className="launch-period">.</span>
-          </motion.h1>
-
-          <motion.div
-            className="launch-heading-caption"
-            variants={revealUp}
-          >
-            <span />
-            CREATIVITY MEETS DESIGN
-          </motion.div>
-
-          <motion.p
-            className="launch-description"
-            variants={revealUp}
-          >
-            We transform imagination into powerful visual experiences.
-            Explore creative branding, graphic design and original
-            concepts designed to make your ideas stand out.
-          </motion.p>
-
-          <motion.div
-            className="launch-actions"
-            variants={revealUp}
-          >
-            <button
-              className="launch-enter-button"
-              onClick={enterWebsite}
+          <Suspense fallback={null}>
+            <ScrollControls
+              pages={4}
+              damping={0.18}
             >
-              EXPLORE OUR WORLD
-              <ArrowRight size={19} />
-            </button>
-
-            <a
-              href="https://wa.me/263781329858"
-              target="_blank"
-              rel="noreferrer"
-              className="launch-contact-link"
-            >
-              <MessageCircle size={17} />
-              LET'S TALK
-            </a>
-          </motion.div>
-
-          <motion.div
-            className="launch-social-row"
-            variants={revealUp}
-          >
-            <a
-              href="https://instagram.com/tntgraphics_zw"
-              target="_blank"
-              rel="noreferrer"
-            >
-              INSTAGRAM ↗
-            </a>
-
-            <span className="launch-social-divider" />
-
-            <span>CREATIVITY WITHOUT LIMITS.</span>
-          </motion.div>
-        </motion.div>
-
-        {/* RIGHT SIDE - ANIMATED IMAGE COLLAGE */}
-        <div className="launch-gallery">
-
-          <motion.div
-            className="launch-gallery-heading"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          >
-            <span>SELECTED CREATIVE WORK</span>
-            <strong>01 — 05</strong>
-          </motion.div>
-
-          <div className="launch-gallery-stage">
-
-            <motion.div
-              className="launch-gallery-ring launch-ring-one"
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 35,
-                repeat: Infinity,
-                ease: 'linear'
-              }}
-            />
-
-            <motion.div
-              className="launch-gallery-ring launch-ring-two"
-              animate={{ rotate: -360 }}
-              transition={{
-                duration: 45,
-                repeat: Infinity,
-                ease: 'linear'
-              }}
-            />
-
-            {gallery.map((item, index) => (
-              <motion.div
-                key={item.number}
-                className={`launch-image-card ${item.className}`}
-                initial={{
-                  opacity: 0,
-                  scale: 0.75,
-                  y: 45,
-                  rotate: index % 2 === 0 ? -8 : 8
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  rotate: 0
-                }}
-                transition={{
-                  delay: 0.55 + index * 0.18,
-                  duration: 0.9,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                whileHover={{
-                  scale: 1.055,
-                  zIndex: 10,
-                  transition: { duration: 0.25 }
-                }}
-              >
-                <div className="launch-image-frame">
-                  <img
-                    src={item.image}
-                    alt={`TNT Graphics ${item.title} portfolio concept`}
-                  />
-                </div>
-
-                <div className="launch-image-label">
-                  <span>{item.number}</span>
-                  <strong>{item.title}</strong>
-                </div>
-              </motion.div>
-            ))}
-
-            <motion.div
-              className="launch-floating-symbol"
-              animate={{
-                y: [0, -13, 0],
-                rotate: [0, 8, 0]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut'
-              }}
-            >
-              ✳
-            </motion.div>
-
-            <motion.div
-              className="launch-floating-tnt"
-              animate={{
-                y: [0, 12, 0]
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: 'easeInOut'
-              }}
-            >
-              TNT
-            </motion.div>
-          </div>
-
-          <motion.div
-            className="launch-gallery-footer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.6 }}
-          >
-            <span>THINK. CREATE. INSPIRE.</span>
-            <span>DESIGN WITH PURPOSE.</span>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* MOVING BRAND STRIP */}
-      <div className="launch-marquee">
-        <div className="launch-marquee-track">
-          {Array.from({ length: 2 }).map((_, index) => (
-            <div className="launch-marquee-content" key={index}>
-              <span>GRAPHIC DESIGN</span>
-              <b>✳</b>
-              <span>BRAND IDENTITY</span>
-              <b>✳</b>
-              <span>CREATIVE THINKING</span>
-              <b>✳</b>
-              <span>DIGITAL ARTWORK</span>
-              <b>✳</b>
-              <span>POWERFUL VISUALS</span>
-              <b>✳</b>
-            </div>
-          ))}
-        </div>
+              <World />
+            </ScrollControls>
+          </Suspense>
+        </Canvas>
       </div>
 
-      {/* FOOTER AND PROGRESS */}
-      <motion.footer
-        className="launch-footer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+      <header className="tnt-topbar">
+        <button
+          className="tnt-logo"
+          onClick={() => navigate('/')}
+          aria-label="TNT Graphics home"
+        >
+          TNT
+          <span>GRAPHICS</span>
+        </button>
+
+        <nav className="tnt-navigation">
+          <button onClick={() => navigate('/home')}>
+            Home
+          </button>
+          <button onClick={() => navigate('/services')}>
+            Services
+          </button>
+          <button onClick={() => navigate('/home#portfolio')}>
+            Our Work
+          </button>
+          <button onClick={() => navigate('/home#about')}>
+            About
+          </button>
+          <button onClick={() => navigate('/home#contact')}>
+            Contact
+          </button>
+        </nav>
+
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="tnt-whatsapp-top"
+        >
+          <MessageCircle size={17} />
+          Chat on WhatsApp
+        </a>
+      </header>
+
+      <button
+        className="tnt-skip-button"
+        onClick={() => navigate('/home')}
       >
-        <span>© 2026 TNT GRAPHICS</span>
+        Skip Intro <ArrowRight size={16} />
+      </button>
 
-        <span className="launch-footer-center">
-          CREATIVE DESIGN. POWERFUL IMPACT.
-        </span>
+      <div className="tnt-bottom-progress">
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
 
-        <div className="launch-progress-area">
-          <span>ENTERING WEBSITE</span>
-          <div className="launch-progress-track">
-            <motion.div
-              className="launch-progress-fill"
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{
-                duration: 6,
-                ease: 'linear'
-              }}
-            />
-          </div>
-        </div>
-      </motion.footer>
-
+      <a
+        className="tnt-floating-whatsapp"
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chat with TNT Graphics on WhatsApp"
+      >
+        <MessageCircle size={25} />
+      </a>
     </main>
   );
 }

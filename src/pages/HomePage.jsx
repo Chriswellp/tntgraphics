@@ -322,21 +322,21 @@ useEffect(() => {
         title: 'Vehicle Branding',
         description:
           'Give your vehicle a powerful identity with professional car and bakkie branding that gets your business noticed wherever you go.',
-        image: '/images/vehicle-branding.jpg',
+        image: '/images/vehicle-branding.jpeg',
         link: '/services/vehicle-branding'
       },
       {
         title: 'Shop Signage & Road Signage',
         description:
           'Make your business stand out with eye-catching shop signs and clear, professionally designed road signage.',
-        image: '/images/shop-road-signage.jpg',
+        image: '/images/shop-road-signage.jpeg',
         link: '/services/shop-road-signage'
       },
       {
         title: 'Portraits & Banners',
         description:
           'Bring your ideas to life with creative portrait designs and attractive banners for personal, business and promotional use.',
-        image: '/images/portraits-banners.jpg',
+        image: '/images/portraits-banners.jpeg',
         link: '/services/portraits-banners'
       }
     ].map((service) => (

@@ -13,7 +13,8 @@ import {
   Trash2,
   MessageCircle,
   ShoppingBag,
-  Sparkles
+  Sparkles,
+  Search
 } from 'lucide-react';
 
 import Navbar from '../components/Navbar';
@@ -101,7 +102,7 @@ const categories = [
 export default function ProductsPage() {
   const [activeCategory, setActiveCategory] = useState('All Products');
   const [cartOpen, setCartOpen] = useState(false);
-
+const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   // Shared cart connected to the checkout page
@@ -113,12 +114,20 @@ export default function ProductsPage() {
     removeFromCart
   } = useCart();
 
-  const filteredProducts =
-    activeCategory === 'All Products'
-      ? products
-      : products.filter(
-          (product) => product.category === activeCategory
-        );
+const filteredProducts = products.filter((product) => {
+  const matchesCategory =
+    activeCategory === 'All Products' ||
+    product.category === activeCategory;
+
+  const query = searchQuery.toLowerCase().trim();
+
+  const matchesSearch =
+    product.name.toLowerCase().includes(query) ||
+    product.description.toLowerCase().includes(query) ||
+    product.category.toLowerCase().includes(query);
+
+  return matchesCategory && matchesSearch;
+});
 
   // Send cart selection directly to WhatsApp
   const sendCartToWhatsApp = () => {
@@ -265,7 +274,31 @@ export default function ProductsPage() {
               </button>
             ))}
           </div>
+{/* PRODUCT SEARCH */}
+<div className="products-search">
+  <Search size={20} />
 
+  <input
+    type="text"
+    placeholder="Search products..."
+    value={searchQuery}
+    onChange={(event) => setSearchQuery(event.target.value)}
+  />
+
+  {searchQuery && (
+    <button
+      type="button"
+      onClick={() => setSearchQuery('')}
+      aria-label="Clear search"
+    >
+      <X size={18} />
+    </button>
+  )}
+</div>
+
+<p className="products-result-count">
+  Showing {filteredProducts.length} products
+</p>
           {/* PRODUCT GRID */}
           <div className="products-grid">
             {filteredProducts.map((product, index) => (

@@ -1,0 +1,352 @@
+/* TNT GRAPHICS — continuous 3D landing walkthrough */
+.launch-page {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #b9c8d1;
+  color: #fff;
+}
+.launch-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.launch-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.launch-topbar {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 88px;
+  padding: 18px clamp(20px, 5vw, 76px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: linear-gradient(180deg, rgba(4, 10, 15, .78), rgba(4, 10, 15, 0));
+}
+.launch-logo {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+}
+.launch-logo strong {
+  color: #00BFFF;
+  font-size: 32px;
+  line-height: .9;
+  font-weight: 950;
+  letter-spacing: -2px;
+}
+.launch-logo span {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  line-height: 1.15;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.launch-logo small {
+  margin-top: 4px;
+  color: rgba(255,255,255,.64);
+  font-size: 7px;
+  letter-spacing: 1.5px;
+}
+.launch-topbar-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: rgba(255,255,255,.82);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+.launch-topbar-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00BFFF;
+  box-shadow: 0 0 14px #00BFFF;
+}
+.launch-skip-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,.5);
+  background: rgba(0,0,0,.22);
+  color: #fff;
+  border-radius: 999px;
+  padding: 11px 17px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+.launch-skip-button:hover {
+  color: #00131b;
+  background: #00BFFF;
+  border-color: #00BFFF;
+}
+.launch-story {
+  width: 100%;
+  color: #fff;
+}
+.launch-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  padding: 100px clamp(24px, 9vw, 140px) 70px;
+  box-sizing: border-box;
+}
+.launch-copy {
+  width: min(590px, 53vw);
+  padding: 28px 32px;
+  border-left: 3px solid #00BFFF;
+  background: linear-gradient(90deg, rgba(3,8,12,.83), rgba(3,8,12,.48) 72%, transparent);
+  text-shadow: 0 2px 18px rgba(0,0,0,.5);
+  backdrop-filter: blur(2px);
+}
+.launch-kicker {
+  display: block;
+  margin-bottom: 20px;
+  color: #00BFFF;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+.launch-copy h1,
+.launch-final-copy h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(42px, 6.1vw, 88px);
+  line-height: .98;
+  font-weight: 950;
+  letter-spacing: -3.8px;
+  text-transform: uppercase;
+}
+.launch-copy h1 span,
+.launch-final-copy h2 span {
+  display: block;
+  color: #00BFFF;
+}
+.launch-copy p,
+.launch-final-copy p {
+  max-width: 470px;
+  margin: 22px 0 28px;
+  color: rgba(255,255,255,.9);
+  font-size: clamp(14px, 1.25vw, 17px);
+  line-height: 1.8;
+}
+.launch-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 20px;
+  border-radius: 3px;
+  color: #00131b;
+  background: #00BFFF;
+  text-decoration: none;
+  text-shadow: none;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .8px;
+  transition: transform .25s ease, background .25s ease;
+}
+.launch-primary-btn:hover {
+  transform: translateY(-3px);
+  background: #fff;
+}
+.launch-scroll-hint {
+  position: absolute;
+  left: clamp(24px, 9vw, 140px);
+  bottom: 42px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,.85);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px #000;
+}
+.launch-scroll-hint svg {
+  color: #00BFFF;
+}
+.launch-scene-index {
+  position: absolute;
+  right: clamp(24px, 5vw, 76px);
+  bottom: 42px;
+  color: rgba(255,255,255,.8);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px #000;
+}
+.launch-scene-2,
+.launch-scene-4 {
+  justify-content: flex-end;
+}
+.launch-scene-2 .launch-copy,
+.launch-scene-4 .launch-copy {
+  border-left: 0;
+  border-right: 3px solid #00BFFF;
+  background: linear-gradient(270deg, rgba(3,8,12,.83), rgba(3,8,12,.48) 72%, transparent);
+  text-align: right;
+}
+.launch-scene-2 .launch-copy p,
+.launch-scene-4 .launch-copy p {
+  margin-left: auto;
+}
+.launch-scene-2 .launch-copy h1 span,
+.launch-scene-4 .launch-copy h1 span {
+  text-align: right;
+}
+.launch-final-copy {
+  width: min(760px, 80vw);
+  margin: 0 auto;
+  padding: 36px;
+  text-align: center;
+  background: rgba(3,8,12,.78);
+  border: 1px solid rgba(0,191,255,.45);
+  backdrop-filter: blur(8px);
+}
+.launch-final-copy h2 {
+  font-size: clamp(36px, 5.5vw, 76px);
+}
+.launch-final-copy p {
+  margin-left: auto;
+  margin-right: auto;
+}
+.launch-bottom-note {
+  position: absolute;
+  z-index: 15;
+  left: clamp(20px, 5vw, 76px);
+  right: clamp(20px, 5vw, 76px);
+  bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: rgba(255,255,255,.76);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  pointer-events: none;
+  text-shadow: 0 2px 12px #000;
+}
+.launch-floating-whatsapp {
+  position: absolute;
+  z-index: 30;
+  right: 26px;
+  bottom: 58px;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #00131b;
+  background: #00BFFF;
+  box-shadow: 0 8px 30px rgba(0,0,0,.3);
+  transition: transform .25s ease;
+}
+.launch-floating-whatsapp:hover {
+  transform: translateY(-4px) scale(1.04);
+}
+.launch-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-content: center;
+  gap: 18px;
+  color: #fff;
+  background: #080d12;
+  text-align: center;
+}
+.launch-loader-logo {
+  color: #00BFFF;
+  font-size: 34px;
+  font-weight: 950;
+}
+.launch-loader-logo span {
+  display: block;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 5px;
+}
+.launch-loader-line {
+  width: 170px;
+  height: 2px;
+  background: rgba(255,255,255,.15);
+  overflow: hidden;
+}
+.launch-loader-line i {
+  display: block;
+  width: 45%;
+  height: 100%;
+  background: #00BFFF;
+  animation: launch-loading 1.3s ease-in-out infinite alternate;
+}
+.launch-loader p {
+  color: rgba(255,255,255,.55);
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+@keyframes launch-loading {
+  from { transform: translateX(-20%); }
+  to { transform: translateX(145%); }
+}
+@media (max-width: 760px) {
+  .launch-page { min-height: 560px; }
+  .launch-topbar { min-height: 72px; padding: 14px 18px; }
+  .launch-topbar-status { display: none; }
+  .launch-logo strong { font-size: 27px; }
+  .launch-skip-button { padding: 9px 12px; font-size: 9px; }
+  .launch-scene {
+    min-height: 560px;
+    padding: 100px 18px 80px;
+    align-items: flex-end;
+  }
+  .launch-copy {
+    width: min(100%, 520px);
+    padding: 22px 20px;
+    background: rgba(3,8,12,.76);
+  }
+  .launch-copy h1 { font-size: clamp(38px, 11vw, 60px); letter-spacing: -2px; }
+  .launch-copy p { font-size: 13px; line-height: 1.65; }
+  .launch-scene-2,
+  .launch-scene-4 { justify-content: flex-start; }
+  .launch-scene-2 .launch-copy,
+  .launch-scene-4 .launch-copy {
+    border-right: 0;
+    border-left: 3px solid #00BFFF;
+    text-align: left;
+    background: rgba(3,8,12,.76);
+  }
+  .launch-scene-2 .launch-copy p,
+  .launch-scene-4 .launch-copy p { margin-left: 0; }
+  .launch-scene-2 .launch-copy h1 span,
+  .launch-scene-4 .launch-copy h1 span { text-align: left; }
+  .launch-scroll-hint { left: 20px; bottom: 36px; font-size: 8px; }
+  .launch-scene-index { right: 20px; bottom: 36px; }
+  .launch-bottom-note { display: none; }
+  .launch-floating-whatsapp { right: 18px; bottom: 18px; width: 46px; height: 46px; }
+  .launch-final-copy { width: 100%; padding: 25px 18px; }
+  .launch-final-copy h2 { font-size: clamp(34px, 10vw, 52px); letter-spacing: -1.8px; }
+}
